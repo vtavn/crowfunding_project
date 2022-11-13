@@ -3,12 +3,15 @@ import CampaignView from "modules/campaign/CampaignView";
 import { lazy, Suspense } from "react";
 import { Routes, Route } from "react-router-dom";
 import Modal from "react-modal";
+import LayoutPayment from "layouts/LayoutPayment";
 
 const SignUpPage = lazy(() => import("./pages/SignUpPage"));
 const SignInPage = lazy(() => import("./pages/SignInPage"));
 const DashboardPage = lazy(() => import("./pages/DashboardPage"));
 const CampaignPage = lazy(() => import("./pages/CampaignPage"));
 const StartCampaignPage = lazy(() => import("./pages/StartCampaignPage"));
+const CheckoutPage = lazy(() => import("./pages/CheckoutPage"));
+const ShippingPage = lazy(() => import("./pages/ShippingPage"));
 const NotFoundPage = lazy(() => import("./pages/NotFoundPage"));
 
 const customStyles = {
@@ -35,6 +38,17 @@ function App() {
           <Route
             path="/campaign/:slug"
             element={<CampaignView></CampaignView>}
+          ></Route>
+        </Route>
+
+        <Route element={<LayoutPayment></LayoutPayment>}>
+          <Route
+            path="/checkout"
+            element={<CheckoutPage></CheckoutPage>}
+          ></Route>
+          <Route
+            path="/shipping-address"
+            element={<ShippingPage></ShippingPage>}
           ></Route>
         </Route>
 

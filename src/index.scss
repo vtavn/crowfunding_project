@@ -48,3 +48,33 @@ input:focus + .error-input {
 .scroll-hidden::-webkit-scrollbar {
   display: none;
 }
+
+//custom datepicker style
+body .react-date-picker {
+  @apply w-full px-6 py-4 text-sm font-medium border rounded-xl text-text1 dark:bg-transparent placeholder:text-text4 dark:placeholder:text-text2 dark:text-white border-strock dark:border-darkStroke;
+  height: 54px;
+  .react-date-picker__wrapper {
+    @apply border-none flex justify-center items-center;
+  }
+}
+
+body .react-date-picker__calendar {
+  .react-calendar {
+    @apply rounded-xl border-0 shadow-sdprimary;
+
+    button.react-calendar__tile.react-calendar__tile--now.react-calendar__month-view__days__day.react-calendar__month-view__days__day--weekend,
+    button.react-calendar__tile.react-calendar__tile--active.react-calendar__tile--range.react-calendar__tile--rangeStart.react-calendar__tile--rangeEnd.react-calendar__tile--rangeBothEnds.react-calendar__month-view__days__day.react-calendar__month-view__days__day--weekend,
+    button:enabled:hover {
+      @apply rounded-xl;
+    }
+    button:enabled:hover {
+      @apply bg-gray-100;
+    }
+    .react-calendar__tile--now {
+      @apply bg-secondary text-white;
+    }
+    .react-calendar__tile--active {
+      @apply bg-primary;
+    }
+  }
+}

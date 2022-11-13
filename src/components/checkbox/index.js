@@ -1,1 +1,3 @@
-const { default: Checkbox } = require("./Checkbox");
+import Checkbox from "./Checkbox";
+
+export { Checkbox };
