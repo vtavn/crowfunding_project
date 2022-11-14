@@ -7,6 +7,8 @@ import LayoutPayment from "layouts/LayoutPayment";
 import { useDispatch, useSelector } from "react-redux";
 import { authRefreshToken, authUpdateUser } from "store/auth/auth-slice";
 import { getToken, logOut } from "utils/auth";
+import RequireAuthPage from "pages/RequireAuthPage";
+import { permissions } from "constants/permissions";
 
 const SignUpPage = lazy(() => import("./pages/SignUpPage"));
 const SignInPage = lazy(() => import("./pages/SignInPage"));
@@ -14,8 +16,11 @@ const DashboardPage = lazy(() => import("./pages/DashboardPage"));
 const CampaignPage = lazy(() => import("./pages/CampaignPage"));
 const StartCampaignPage = lazy(() => import("./pages/StartCampaignPage"));
 const CheckoutPage = lazy(() => import("./pages/CheckoutPage"));
+const PaymentPage = lazy(() => import("./pages/PaymentPage"));
+const WithdrawPage = lazy(() => import("./pages/WithdrawPage"));
 const ShippingPage = lazy(() => import("./pages/ShippingPage"));
 const NotFoundPage = lazy(() => import("./pages/NotFoundPage"));
+const UnauthorizePage = lazy(() => import("./pages/UnauthorizePage"));
 
 const customStyles = {
   content: {},
@@ -57,12 +62,30 @@ function App() {
             element={<CampaignPage></CampaignPage>}
           ></Route>
           <Route
-            path="/start-campaign"
-            element={<StartCampaignPage></StartCampaignPage>}
-          ></Route>
+            element={
+              <RequireAuthPage
+                allowPermissions={[permissions.campaign.CREATE_CAMPAIGN]}
+              />
+            }
+          >
+            <Route
+              path="/start-campaign"
+              element={<StartCampaignPage></StartCampaignPage>}
+            ></Route>
+          </Route>
           <Route
             path="/campaign/:slug"
             element={<CampaignView></CampaignView>}
+          ></Route>
+          <Route
+            path="/unauthorize"
+            element={<UnauthorizePage></UnauthorizePage>}
+          ></Route>
+
+          <Route path="/payment" element={<PaymentPage></PaymentPage>}></Route>
+          <Route
+            path="/withdraw"
+            element={<WithdrawPage></WithdrawPage>}
           ></Route>
         </Route>
 

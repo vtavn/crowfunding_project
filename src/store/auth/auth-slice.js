@@ -6,14 +6,14 @@ const authSlice = createSlice({
   reducers: {
     authLogin: (state, action) => ({
       ...state,
-      ...action.payload,
+      // ...action.payload,
     }),
     authRegister: (state, action) => ({
       ...state,
       ...action.payload,
     }),
     authUpdateUser: (state, action) => ({
-      ...state,
+      // ...state,
       user: action.payload.user,
       accessToken: action.payload.accessToken,
     }),
