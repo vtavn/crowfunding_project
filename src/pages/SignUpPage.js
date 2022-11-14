@@ -12,6 +12,8 @@ import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { Button } from "components/button";
 import { ButtonGoogle } from "components/button";
+import { useDispatch } from "react-redux";
+import { authRegister } from "store/auth/auth-slice";
 
 const schema = yup.object({
   name: yup.string().required("This field is required"),
@@ -26,6 +28,7 @@ const SignUpPage = () => {
   const {
     handleSubmit,
     control,
+    reset,
     formState: { isValid, isSubmitting, errors },
   } = useForm({
     resolver: yupResolver(schema),
@@ -37,8 +40,15 @@ const SignUpPage = () => {
   const { value: showPassword, handleToggleValue: handleTogglePassword } =
     useToggleValue();
 
-  const handleSignUp = (values) => {
-    console.log(values);
+  const dispatch = useDispatch();
+
+  const handleSignUp = async (values) => {
+    try {
+      dispatch(authRegister(values));
+      reset({});
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (

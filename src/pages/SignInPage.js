@@ -1,6 +1,6 @@
 import { ButtonGoogle } from "components/button";
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import LayoutAuthentication from "../layouts/LayoutAuthentication";
 import Label from "components/label/Label";
 import Input from "components/input/Input";
@@ -11,6 +11,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { Button } from "components/button";
 import useToggleValue from "hooks/useToggleValue";
+import { useDispatch, useSelector } from "react-redux";
+import { authLogin } from "store/auth/auth-slice";
 
 const schema = yup.object({
   email: yup.string().email().required("This field is required"),
@@ -35,9 +37,18 @@ const SignInPage = () => {
   const { value: showPassword, handleToggleValue: handleTogglePassword } =
     useToggleValue();
 
+  const dispatch = useDispatch();
+
   const handleSignIn = (values) => {
-    console.log(values);
+    dispatch(authLogin(values));
   };
+  const { user } = useSelector((state) => state.auth);
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (user && user.id) {
+      navigate("/");
+    }
+  }, [user]);
 
   return (
     <LayoutAuthentication heading="Welcome Back!">
